@@ -108,15 +108,6 @@ $kolomTeks = static function (string $nama, string $label, string $tipe = 'text'
         <span>Masih ada kamar kosong</span>
     </label>
 
-    <?php if (butuh_pin()): ?>
-        <div class="isian">
-            <label for="pin">Kode admin</label>
-            <input type="password" id="pin" name="pin" autocomplete="off" required>
-            <p class="petunjuk">Diperlukan untuk menyimpan perubahan data.</p>
-            <?php if (isset($galat['pin'])): ?><p class="galat" role="alert"><?= e($galat['pin']) ?></p><?php endif; ?>
-        </div>
-    <?php endif; ?>
-
     <div class="aksi">
         <button class="tombol" type="submit"><?= e($tombol) ?></button>
         <a class="tombol tombol-garis" href="/">Batal</a>

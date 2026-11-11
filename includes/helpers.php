@@ -79,25 +79,11 @@ function pesan_status(): ?array
         'dibuat'  => ['ok', 'Data kos berhasil ditambahkan.'],
         'diubah'  => ['ok', 'Data kos berhasil diperbarui.'],
         'dihapus' => ['ok', 'Data kos berhasil dihapus.'],
-        'pin'     => ['err', 'Kode admin tidak sesuai.'],
+        'masuk'   => ['ok', 'Berhasil masuk sebagai admin.'],
+        'keluar'  => ['ok', 'Kamu sudah keluar.'],
     ];
     $kunci = $_GET['pesan'] ?? '';
     return $pesan[$kunci] ?? null;
-}
-
-/** Kode admin dipakai bila variabel ADMIN_PIN diisi di server. */
-function butuh_pin(): bool
-{
-    return env('ADMIN_PIN') !== null;
-}
-
-function pin_valid(): bool
-{
-    $pin = env('ADMIN_PIN');
-    if ($pin === null) {
-        return true;
-    }
-    return hash_equals($pin, (string) ($_POST['pin'] ?? ''));
 }
 
 /**

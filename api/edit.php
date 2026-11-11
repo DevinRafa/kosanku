@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/../includes/bootstrap.php';
 
+wajib_masuk();
+
 $id = (int) ($_GET['id'] ?? 0);
 $pdo = db();
 
@@ -19,10 +21,6 @@ $galat = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     [$data, $galat] = validasi_kos($_POST);
     $data['id'] = $id;
-
-    if (!pin_valid()) {
-        $galat['pin'] = 'Kode admin tidak sesuai.';
-    }
 
     if (count($galat) === 0) {
         $update = $pdo->prepare(

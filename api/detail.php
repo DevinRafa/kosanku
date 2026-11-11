@@ -22,6 +22,7 @@ $lainnya = $stmtLain->fetchAll();
 $fasilitas = daftar_fasilitas($kos['fasilitas']);
 $pesanWa   = rawurlencode('Halo, saya melihat ' . $kos['nama'] . ' di KosanKu. Apakah masih ada kamar kosong?');
 $judul     = $kos['nama'];
+$admin     = sudah_masuk();
 
 require __DIR__ . '/../includes/header.php';
 ?>
@@ -66,27 +67,27 @@ require __DIR__ . '/../includes/header.php';
 
         <div class="aksi">
             <a class="tombol" href="https://wa.me/<?= e(nomor_wa($kos['kontak'])) ?>?text=<?= $pesanWa ?>" target="_blank" rel="noopener">Hubungi via WhatsApp</a>
-            <a class="tombol tombol-garis" href="/ubah/<?= (int) $kos['id'] ?>">Ubah</a>
-            <button class="tombol tombol-bahaya" type="button" data-buka-hapus>Hapus</button>
+            <?php if ($admin): ?>
+                <a class="tombol tombol-garis" href="/ubah/<?= (int) $kos['id'] ?>">Ubah</a>
+                <button class="tombol tombol-bahaya" type="button" data-buka-hapus>Hapus</button>
+            <?php endif; ?>
         </div>
     </div>
 </article>
 
+<?php if ($admin): ?>
 <dialog id="dialog-hapus" class="dialog">
     <form method="post" action="/hapus">
         <h2>Hapus data kos?</h2>
         <p><strong><?= e($kos['nama']) ?></strong> akan dihapus permanen dan tidak bisa dikembalikan.</p>
         <input type="hidden" name="id" value="<?= (int) $kos['id'] ?>">
-        <?php if (butuh_pin()): ?>
-            <label for="pin-hapus">Kode admin</label>
-            <input type="password" id="pin-hapus" name="pin" autocomplete="off" required>
-        <?php endif; ?>
         <div class="aksi">
             <button class="tombol tombol-bahaya" type="submit">Ya, hapus</button>
             <button class="tombol tombol-garis" type="button" data-tutup-hapus>Batal</button>
         </div>
     </form>
 </dialog>
+<?php endif; ?>
 
 <?php if (count($lainnya) > 0): ?>
     <section class="lainnya">
