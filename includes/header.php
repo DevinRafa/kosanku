@@ -25,7 +25,18 @@ $status = pesan_status();
         </a>
         <nav class="menu" aria-label="Menu utama">
             <a href="/">Daftar kos</a>
-            <a class="tombol tombol-kecil" href="/tambah">+ Tambah kos</a>
+            <?php if (sudah_masuk()): ?>
+                <a class="tombol tombol-kecil" href="/tambah">+ Tambah kos</a>
+            <?php endif; ?>
+            <?php if (auth_aktif()): ?>
+                <?php if (sudah_masuk()): ?>
+                    <form class="form-keluar" method="post" action="/keluar">
+                        <button class="tautan-tombol" type="submit">Keluar</button>
+                    </form>
+                <?php else: ?>
+                    <a href="/masuk">Masuk admin</a>
+                <?php endif; ?>
+            <?php endif; ?>
         </nav>
     </div>
 </header>

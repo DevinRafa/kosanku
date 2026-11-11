@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/auth.php';
 
 // Tangani galat tak terduga (mis. database belum terhubung) dengan halaman yang ramah.
 set_exception_handler(function (Throwable $ex): void {

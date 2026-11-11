@@ -238,3 +238,9 @@ fieldset.isian legend { padding: 0 6px; }
     * { transition: none !important; }
     .kartu:hover { transform: none; }
 }
+
+/* ---------- Masuk / keluar ---------- */
+.form-sempit { max-width: 420px; }
+.form-keluar { margin: 0; }
+.tautan-tombol { background: none; border: 0; padding: 0; font: inherit; font-weight: 500; color: var(--tinta); cursor: pointer; }
+.tautan-tombol:hover { color: var(--terakota); }

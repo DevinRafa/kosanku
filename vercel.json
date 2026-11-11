@@ -10,6 +10,8 @@
     { "src": "/kos/([0-9]+)/?", "dest": "/api/detail.php?id=$1" },
     { "src": "/tambah/?", "dest": "/api/create.php" },
     { "src": "/ubah/([0-9]+)/?", "dest": "/api/edit.php?id=$1" },
-    { "src": "/hapus/?", "dest": "/api/delete.php" }
+    { "src": "/hapus/?", "dest": "/api/delete.php" },
+    { "src": "/masuk/?", "dest": "/api/login.php" },
+    { "src": "/keluar/?", "dest": "/api/logout.php" }
   ]
 }

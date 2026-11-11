@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect('/');
 }
 
-$id = (int) ($_POST['id'] ?? 0);
-
-if (!pin_valid()) {
-    redirect('/kos/' . $id . '?pesan=pin');
+if (!sudah_masuk()) {
+    redirect('/masuk');
 }
+
+$id = (int) ($_POST['id'] ?? 0);
 
 $stmt = db()->prepare('DELETE FROM kos WHERE id = :id');
 $stmt->execute([':id' => $id]);

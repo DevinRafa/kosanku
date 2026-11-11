@@ -21,6 +21,10 @@ if ($path === '/') {
 } elseif (preg_match('#^/ubah/(\d+)/?$#', $path, $m)) {
     $_GET['id'] = $m[1];
     require __DIR__ . '/api/edit.php';
+} elseif (preg_match('#^/masuk/?$#', $path)) {
+    require __DIR__ . '/api/login.php';
+} elseif (preg_match('#^/keluar/?$#', $path)) {
+    require __DIR__ . '/api/logout.php';
 } elseif (preg_match('#^/hapus/?$#', $path)) {
     require __DIR__ . '/api/delete.php';
 } else {

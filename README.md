@@ -31,8 +31,8 @@ Pengguna dapat mencari kos berdasarkan kata kunci, tipe (putra/putri/campur), da
 ## Struktur folder
 
 ```
-api/              halaman PHP (satu berkas = satu halaman)
-includes/         konfigurasi, koneksi database, helper, header, footer, form
+api/              halaman PHP (satu berkas = satu halaman, termasuk login/logout)
+includes/         konfigurasi, koneksi database, autentikasi, helper, header, footer, form
 database/         schema.sql (tabel + data contoh)
 public/assets/    css, js, dan foto contoh (SVG)
 router.php        router untuk server PHP bawaan saat pengembangan lokal
@@ -74,7 +74,8 @@ Vercel tidak menyediakan MySQL, jadi database harus berada di layanan MySQL onli
    | `DB_USER` | pengguna database |
    | `DB_PASS` | kata sandi database |
    | `DB_SSL` | isi `1` bila penyedia mewajibkan koneksi TLS |
-   | `ADMIN_PIN` | opsional; bila diisi, tambah/ubah/hapus meminta kode ini |
+   | `ADMIN_PASSWORD` | kata sandi admin untuk menambah, mengubah, dan menghapus data |
+   | `AUTH_SECRET` | string acak panjang untuk menandatangani cookie login |
 
 4. Klik **Deploy**. Rute diatur oleh `vercel.json`.
 
@@ -82,5 +83,6 @@ Vercel tidak menyediakan MySQL, jadi database harus berada di layanan MySQL onli
 
 - Semua query memakai prepared statement (PDO) dan semua keluaran di-escape dengan `htmlspecialchars`.
 - Kredensial database tidak disimpan di repositori; diambil dari variabel lingkungan.
-- Karena Vercel bersifat serverless (tanpa sesi tetap), perlindungan tulis memakai `ADMIN_PIN` sederhana, bukan sistem login. Isi variabel ini pada deployment publik.
+- Vercel bersifat serverless, jadi `$_SESSION` berbasis berkas tidak andal. Login admin memakai cookie bertanda tangan HMAC (`includes/auth.php`): server tidak menyimpan sesi apa pun, cukup memverifikasi tanda tangan dan masa berlaku (2 jam) di setiap permintaan. Cookie bersifat `HttpOnly`, `Secure` (di HTTPS), dan `SameSite=Lax`.
+- Pengunjung umum hanya bisa melihat dan mencari data. Tambah, ubah, dan hapus memerlukan login di `/masuk`. Bila `ADMIN_PASSWORD` tidak diisi, aplikasi berjalan dalam mode terbuka (hanya untuk pengembangan lokal).
 - Data kos pada `schema.sql` adalah data fiktif.

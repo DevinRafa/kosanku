@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/../includes/bootstrap.php';
 
+wajib_masuk();
+
 $data = [
     'nama' => '', 'alamat' => '', 'kota' => 'Purwokerto', 'tipe' => '', 'harga' => '',
     'ukuran' => '', 'fasilitas' => '', 'deskripsi' => '', 'kontak' => '',
@@ -12,10 +14,6 @@ $galat = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     [$data, $galat] = validasi_kos($_POST);
-
-    if (!pin_valid()) {
-        $galat['pin'] = 'Kode admin tidak sesuai.';
-    }
 
     if (count($galat) === 0) {
         $stmt = db()->prepare(
